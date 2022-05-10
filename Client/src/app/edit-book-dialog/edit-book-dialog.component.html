@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>{{dialogTitle}}</h2>
+
+<mat-dialog-content>
+
+    <ng-container *ngIf="form">
+
+        <ng-container [formGroup]="form">
+            <div>
+            <div for="">Book Cover Image:</div>
+            <input type="file" (change)="handleInputChange($event)" required/>
+            </div>
+            <br/>
+
+            <mat-form-field>
+
+                <input matInput placeholder="Book Name" formControlName="name">
+
+            </mat-form-field>
+
+            <mat-form-field>
+
+                <input matInput placeholder="Book Author" formControlName="author">
+
+            </mat-form-field>
+
+            <mat-form-field>
+
+                <input matInput placeholder="Book Total Quantity" type="number" formControlName="totalQuantity">
+
+            </mat-form-field>
+
+            <mat-form-field>
+
+                <input matInput placeholder="Description"  formControlName="description">
+
+            </mat-form-field>
+            <mat-form-field>
+
+                <input matInput placeholder="Publisher" formControlName="publisher">
+
+            </mat-form-field>
+
+            <mat-form-field>
+
+                <input matInput placeholder="ISBN" type="number" formControlName="isbn">
+
+            </mat-form-field>
+            <mat-form-field>
+
+                <input matInput placeholder="Publication Date" type="date" formControlName="publicationDate">
+
+            </mat-form-field>
+            <mat-form-field>
+
+                <input matInput placeholder="Pages Count" type="number" formControlName="pages">
+
+            </mat-form-field>
+
+        </ng-container>
+
+    </ng-container>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+    <button mat-raised-button (click)="onClose()">
+        Close
+    </button>
+
+    <button mat-raised-button color="primary" [disabled]="!form?.valid" (click)="onSave()">
+        Save
+    </button>
+
+</mat-dialog-actions>

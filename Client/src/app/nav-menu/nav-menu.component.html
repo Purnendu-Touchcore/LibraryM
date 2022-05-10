@@ -1,0 +1,25 @@
+<header class="mb-3">
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top border-bottom box-shadow">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">Library Management System</a>
+
+      <div class="navbar-nav d-sm-inline-flex justify-content-end" *ngIf="user">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/books']" routerLinkActive="active">Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/records']" routerLinkActive="active">Records</a>
+          </li>
+        </ul>
+        <div class="dropdown " dropdown>
+          <a class="dropdown-toggle btn shadow-none text-light" dropdownToggle>{{user.email}} </a>
+          <div class="dropdown-menu mt-3" *dropdownMenu>
+            <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Logout</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+</header>

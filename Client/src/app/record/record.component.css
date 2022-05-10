@@ -1,0 +1,56 @@
+table {
+  width: 100%;
+}
+
+.allRecords {
+  border-radius: 10px;
+  height: 80vh;
+  max-width: 100%;
+  overflow: auto;
+}
+.noRecords{
+  background-color: #fff;
+  width: 100%;
+  border-radius: 5px;
+  height:38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mat-header-cell {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+mat-paginator {
+  border-radius: 0 0 10px 10px;
+}
+.mat-column-bookName {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 28% !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+  border-radius: 0 10px 10px 0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1fb4ff;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #01c8ff;
+}

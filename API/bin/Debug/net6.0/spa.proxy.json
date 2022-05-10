@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "",
+"LaunchCommand": "",
+"WorkingDirectory": "C:\\Users\\Purnendu\\Documents\\LibraryM\\API",
+"MaxTimeoutInSeconds": "120"
+}
+}

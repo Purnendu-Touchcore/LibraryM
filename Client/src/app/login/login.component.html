@@ -1,0 +1,18 @@
+<div class="login">
+    <h1 class="text-light">{{ showLoginForm ? "Login" : "Student Registration" }}</h1>
+    <p class="text-danger" >{{errorMessage}}</p>
+    <p class="text-success" >{{successMessage}}</p>
+    <div>
+      
+      <form class="form-control login__form" [formGroup]="form" >
+        <input *ngIf="!showLoginForm" class="form-control" type="text" placeholder="User Name" formControlName="userName"/>
+        <input class="form-control" type="email" placeholder="email" formControlName="email" />
+        <input class="form-control" type="password" placeholder="password" formControlName="password" />
+        <button type="button" class="form-control btn-primary" (click)="showLoginForm ? signIn() : register()"> {{showLoginForm ? 'Login' : 'Register'}} </button>
+      </form>
+
+      <a (click)="changeForm()" >
+        Show {{ showLoginForm ? "Registration" : "Login" }} Form
+      </a>
+    </div>
+  </div>

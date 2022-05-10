@@ -1,0 +1,56 @@
+<div class="book__container">
+    <div class="breadcrumbs">
+        <a [routerLink]="['/books']">Books</a> <span style="font-weight: 500;"> / </span> <span style="color:#6c757d">Book Details</span>
+    </div>
+    <mat-card style="border-radius: 5px" fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)" *ngIf="book">
+        <div class="book__image">
+            <img style="border-radius:  0 5px 5px 0" src="{{book.coverImage}}" alt="">
+            <div *ngIf="(user && user.role !== 'Admin')" class="editBtn">
+                <button type="button" (click)="handlebookRequest()" class="btn btn-primary shadow-none"
+                    [disabled]="GetBookStatus() !== 'Request'">{{GetBookStatus()}}</button>
+            </div>
+        </div>
+
+        <div class="book__info">
+            <h4>
+                {{ book.name }}
+            </h4>
+            <p>by {{ book.author }}</p>
+            <p>In stock: {{book.availableQuantity}}</p>
+            <h6>
+                Description:
+            </h6>
+            <p>{{book.description}}</p>
+            <h6>
+                Book Details:
+            </h6>
+            <table>
+                <tr>
+                    <td>Available Quantity:</td>
+                    <td>{{book.availableQuantity}}</td>
+                </tr>
+                <tr>
+                    <td>Total Quantity:</td>
+                    <td>{{book.totalQuantity}}</td>
+                </tr>
+                <tr>
+                    <td>Pages:</td>
+                    <td>{{book.pages}}</td>
+                </tr>
+                <tr>
+                    <td>Publisher:</td>
+                    <td>{{book.publisher}}</td>
+                </tr>
+                <tr>
+                    <td>Published Date:</td>
+                    <td>{{book.publicationDate | date}}</td>
+                </tr>
+                <tr>
+                    <td>ISBN:</td>
+                    <td>{{book.isbn}}</td>
+                </tr>
+
+            </table>
+        </div>
+    </mat-card>
+</div>

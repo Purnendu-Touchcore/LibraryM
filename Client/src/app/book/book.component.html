@@ -1,0 +1,47 @@
+<h1 id="tableLabel">All Books</h1>
+
+<p *ngIf="!books"><mat-spinner color="#0d6efd"></mat-spinner></p>
+
+<div *ngIf="books" class="d-flex justify-content-between align-items-center" style="width: 100%;">
+  <div class="d-flex searchbar">
+    <input type="text" [(ngModel)]="bookName" placeholder="Search a book" />
+    <button type="button" class="btn btn-primary btn-sm d-flex" (click)="search(bookName)">
+      <div>
+        <mat-icon>search</mat-icon>
+      </div>
+    </button>
+  </div>
+  <div *ngIf="(user && user.role == 'Admin')">
+    <button type="button" class="btn btn-primary btn-sm" (click)="add()">Add Book</button>
+  </div>
+</div>
+
+
+
+
+<div class="book__container container scroller">
+
+  <mat-card *ngFor="let book of books | paginate: { itemsPerPage: 14, currentPage: p, totalItems: total}" fxFlex="calc(33%-25px)"
+    fxFlex.sm="calc(50%-25px)">
+    <mat-card-content (click)="viewBookDetails(book.id)">
+      <img mat-card-image src="{{book.coverImage}}" alt="">
+      <div matTooltip="{{book.name +' by '+ book.author}}">
+        <h6 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;font-size: 14px;">
+          {{ book.name }}
+        </h6>
+        <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;font-size: 12px;">{{ book.author }}</p>
+      </div>
+    </mat-card-content>
+    <div *ngIf="(user && user.role == 'Admin')" class="editBtn">
+      <button type="button" (click)="openEditDialog(book)" class="btn btn-sm shadow-none">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+
+
+</div>
+<div class="pageContainer" style="display: flex;justify-content: center;">
+ <pagination-controls (pageChange)="getBooksByPageNo($event)"></pagination-controls> 
+
+</div>
