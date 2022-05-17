@@ -88,7 +88,7 @@ namespace API.Repositories
                                 book.CoverImage = (string)reader["CoverImage"];
                                 book.Publisher = (string)reader["Publisher"];
                                 book.ISBN = (int)reader["ISBN"];
-                                book.PublicationDate = reader["PublicationDate"].ToString();
+                                book.PublicationDate = DateTime.Parse(reader["PublicationDate"].ToString());
                                 book.Pages = (int)reader["Pages"];
                             }
                         }
@@ -140,7 +140,7 @@ namespace API.Repositories
                                 book.CoverImage = (string)reader["CoverImage"];
                                 book.Publisher = (string)reader["Publisher"];
                                 book.ISBN = (int)reader["ISBN"];
-                                book.PublicationDate = reader["PublicationDate"].ToString();
+                                book.PublicationDate = DateTime.Parse(reader["PublicationDate"].ToString());
                                 book.Pages = (int)reader["Pages"];
                                 book.MaxRows = (int)reader["MaxRows"];
                                 books.Add(book);
@@ -167,10 +167,11 @@ namespace API.Repositories
             List<Book> books = new();
             SqlConnection cnn = null;
             SqlDataReader reader = null;
-            using (cnn = new SqlConnection(connectionString))
+            try
             {
-                try
+                using (cnn = new SqlConnection(connectionString))
                 {
+
                     using (SqlCommand cmd = new SqlCommand("GetAllBooks", cnn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -193,23 +194,24 @@ namespace API.Repositories
                                     CoverImage = reader["CoverImage"].ToString(),
                                     Publisher = reader["Publisher"].ToString(),
                                     ISBN = Convert.ToInt32(reader["ISBN"]),
-                                    PublicationDate = reader["PublicationDate"].ToString(),
+                                    PublicationDate = DateTime.Parse(reader["PublicationDate"].ToString()),
                                     Pages = Convert.ToInt32(reader["Pages"])
                                 });
                             }
                             return books;
                         }
                     }
+
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
-                finally
-                {
-                    if (reader != null) reader.Close();
-                    if (cnn != null) cnn.Close();
-                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                if (reader != null) reader.Close();
+                if (cnn != null) cnn.Close();
             }
         }
         public IEnumerable<Book> Search(string? bookName)
@@ -247,7 +249,7 @@ namespace API.Repositories
                                     CoverImage = reader["CoverImage"].ToString(),
                                     Publisher = reader["Publisher"].ToString(),
                                     ISBN = Convert.ToInt32(reader["ISBN"]),
-                                    PublicationDate = reader["PublicationDate"].ToString(),
+                                    PublicationDate = DateTime.Parse(reader["PublicationDate"].ToString()),
                                     Pages = Convert.ToInt32(reader["Pages"])
                                 });
                             }

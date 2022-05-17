@@ -2,7 +2,7 @@ export interface User {
    id: number;
    name : string
    email : string
-   role : string
+   roleName : string
    password : string
    token : string
 }

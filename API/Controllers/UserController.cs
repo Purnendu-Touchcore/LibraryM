@@ -2,6 +2,8 @@
 using API.Models;
 using API.Interfaces;
 using API.Middlewares;
+using API.DTOs;
+
 namespace API.Controllers
 {
     [Route("[controller]")]
@@ -18,13 +20,13 @@ namespace API.Controllers
         }
 
         [HttpPost("Login")]
-        public ActionResult<User> Login(User user)
+        public ActionResult<UserDTO> Login(UserDTO user)
         {
             return _repository.Login(user);
         }
 
         [HttpPost("Register")]
-        public ActionResult<Status> Post(User user)
+        public ActionResult<Status> Post(UserDTO user)
         {
             _repository.Register(user);
             return Ok(new Status() {message = "User registered successfully"});

@@ -3,10 +3,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Record } from './record';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class RecordService {
-  recordsUrl = 'https://librarym-purnendu.azure-api.net/record';  // URL to web api
+  recordsUrl = environment.baseUrl+'/record';  // URL to web api
 
   constructor(private http: HttpClient) {}
 
@@ -14,22 +15,14 @@ export class RecordService {
     return this.http.get<Record[]>(this.recordsUrl)
   }
 
-  getRecordsByPage(pageSize: number, currentPage:number): Observable<Record[]> {
-    return this.http.get<Record[]>(`${this.recordsUrl}/page/${pageSize}/${currentPage}`)
+  getUserRecordsByPage(bookStatus: string, email: string, pageSize: number, pageNumber:number): Observable<Record[]> {
+    return this.http.get<Record[]>(`${this.recordsUrl}/${bookStatus}/${email}/${pageSize}/${pageNumber}`)
   }
 
-  getUserRecords(id: any): Observable<Record[]> {
-    return this.http.get<Record[]>(`${this.recordsUrl}/${id}`)
+  getRecordsByPage(bookStatus: string, pageSize: number, pageNumber:number): Observable<Record[]> {
+    let email = "All"
+    return this.http.get<Record[]>(`${this.recordsUrl}/${bookStatus}/${email}/${pageSize}/${pageNumber}`)
   }
-
-  // searchRecords(id: string): Observable<Record> {
-  //   id = id.trim();
-
-  //   const url = `${this.recordsUrl}/${id}`;
-  //   console.log(url)
-  //   return this.http.get<Record>(url)
-  // }
-
 
   addRecord(record: Record): Observable<number> {
     return this.http.post<number>(this.recordsUrl, record)

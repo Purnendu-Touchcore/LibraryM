@@ -51,10 +51,9 @@ export class LoginComponent implements OnInit {
         if (user.email === null) return
         this.user = user;
         this.store.dispatch(login({ user }));
-        this.router.navigateByUrl('/books');
+        this.router.navigate(['/books'], {replaceUrl: true});
         localStorage.setItem('token', user.token)
-      }
-      );
+      });
   }
 
   register() {
@@ -65,7 +64,7 @@ export class LoginComponent implements OnInit {
       .register({
         name: this.form.value.userName,
         email: this.form.value.email,
-        role: 'Student',
+        roleName: 'Student',
         password: this.form.value.password
       } as User)
       .subscribe(

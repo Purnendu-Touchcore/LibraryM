@@ -11,7 +11,7 @@
       </div>
     </button>
   </div>
-  <div *ngIf="(user && user.role == 'Admin')">
+  <div *ngIf="(user && user.roleName == 'Admin')">
     <button type="button" class="btn btn-primary btn-sm" (click)="add()">Add Book</button>
   </div>
 </div>
@@ -32,7 +32,7 @@
         <p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;font-size: 12px;">{{ book.author }}</p>
       </div>
     </mat-card-content>
-    <div *ngIf="(user && user.role == 'Admin')" class="editBtn">
+    <div *ngIf="(user && user.roleName == 'Admin')" class="editBtn">
       <button type="button" (click)="openEditDialog(book)" class="btn btn-sm shadow-none">
         <mat-icon>edit</mat-icon>
       </button>

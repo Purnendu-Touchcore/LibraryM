@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using API.Models;
+using API.DTOs;
 
 namespace API.Interfaces
 {
   public interface IUserRepository
   {
-    int Register(User user);
-    User Login(User user);
+    int Register(UserDTO user);
+    UserDTO Login(UserDTO user);
 
   }
 }

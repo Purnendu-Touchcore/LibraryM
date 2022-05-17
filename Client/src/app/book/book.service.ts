@@ -4,11 +4,12 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Book } from './book';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable()
 export class BookService {
-  booksUrl = 'https://librarym-purnendu.azure-api.net/book';  // URL to web api
+  booksUrl = environment.baseUrl+'/book';  // URL to web api
 
   constructor(private http: HttpClient) {}
 

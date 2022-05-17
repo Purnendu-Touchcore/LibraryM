@@ -2,12 +2,12 @@ export interface Record {
   id: number
   bookId: number
   bookName: string
-  userId: number,
+  userId: number
   email: string
   status: string
-  issuedDate: string
-  dueDate: string
-  returnDate: string
+  issuedDate: Date | null
+  dueDate: Date | null
+  returnDate: Date | null
   fineAmount: number
   maxRows: number
 }

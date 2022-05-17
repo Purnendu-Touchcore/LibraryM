@@ -1,7 +1,9 @@
 table {
   width: 100%;
 }
-
+.search_container {
+  margin: 10px 0;
+}
 .allRecords {
   border-radius: 10px;
   height: 80vh;
@@ -53,4 +55,29 @@ mat-paginator {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #01c8ff;
+}
+
+.searchbar {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.searchbar>input {
+  border: none;
+  outline: none;
+  border-radius: 5px 0 0 5px;
+  padding-left: 10px;
+  width: 400px;
+}
+
+.searchbar>button {
+  width: 60px;
+  margin: auto;
+  position: relative;
+  border-radius: 0 5px 5px 0;
+}
+
+.searchbar>button>div {
+  margin: auto;
 }

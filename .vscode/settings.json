@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/51a47b2b-8cfc-4da8-b5e2-ed3249fa2886/resourceGroups/LibraryM-Purnendu/providers/Microsoft.Web/sites/Library-Client-Purnendu",
+    "appService.deploySubpath": "Client\\dist\\client"
+}

@@ -33,8 +33,7 @@ export class BookComponent implements OnInit {
 
   constructor(
     private store: Store, 
-    private bookService: BookService, 
-    private recordService: RecordService, 
+    private bookService: BookService,  
     private dialog: MatDialog, 
     private router: Router) { }
     
@@ -54,22 +53,13 @@ export class BookComponent implements OnInit {
     this.bookService.getBooksByPage(this.p).subscribe(books => {
       this.books = books;
       this.total = books[0].maxRows;
-      if(this.user.role !== 'Admin'){
+      if(this.user && this.user.roleName !== 'Admin'){
         this.books = this.books.filter(b => b.totalQuantity !== 0)
       }
     });
   }
 
-  getBooks(): void {
-    this.bookService.getBooks()
-      .subscribe(books => {
-        this.books = books;
-        if(this.user.role != 'Admin'){
-          
-          this.books = this.books.filter(b => b.totalQuantity !== 0)
-        }
-      });
-  }
+
   viewBookDetails(id: number) {
     this.router.navigateByUrl(`/book/${id}`);
   }
@@ -85,7 +75,7 @@ export class BookComponent implements OnInit {
 
     this.dialog.open(EditBookDialogComponent, dialogConfig)
     .afterClosed()
-    .subscribe(() =>  this.getBooks());
+    .subscribe(() =>  this.getBooksByPageNo(this.p));
   }
 
 
@@ -104,7 +94,7 @@ export class BookComponent implements OnInit {
         .searchBooks(searchTerm)
         .subscribe(books => this.books = books);
     } else {
-      this.getBooks();
+      this.getBooksByPageNo(this.p);
     }
   }
 
@@ -119,7 +109,7 @@ export class BookComponent implements OnInit {
 
     this.dialog.open(EditBookDialogComponent, dialogConfig)
       .afterClosed()
-      .subscribe(() =>  this.getBooks());
+      .subscribe(() =>  this.getBooksByPageNo(this.p));
   }
 
   defaultDialogConfig() {

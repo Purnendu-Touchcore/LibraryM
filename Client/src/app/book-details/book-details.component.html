@@ -5,7 +5,7 @@
     <mat-card style="border-radius: 5px" fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)" *ngIf="book">
         <div class="book__image">
             <img style="border-radius:  0 5px 5px 0" src="{{book.coverImage}}" alt="">
-            <div *ngIf="(user && user.role !== 'Admin')" class="editBtn">
+            <div *ngIf="(user && user.roleName !== 'Admin')" class="editBtn">
                 <button type="button" (click)="handlebookRequest()" class="btn btn-primary shadow-none"
                     [disabled]="GetBookStatus() !== 'Request'">{{GetBookStatus()}}</button>
             </div>

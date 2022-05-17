@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Purnendu\\Documents\\LibraryM\\API\\API.csproj": {}
+    "C:\\Users\\Purnendu\\Documents\\WebProjects\\LibraryM\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Purnendu\\Documents\\LibraryM\\API\\API.csproj": {
+    "C:\\Users\\Purnendu\\Documents\\WebProjects\\LibraryM\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Purnendu\\Documents\\LibraryM\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Purnendu\\Documents\\WebProjects\\LibraryM\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Purnendu\\Documents\\LibraryM\\API\\API.csproj",
+        "projectPath": "C:\\Users\\Purnendu\\Documents\\WebProjects\\LibraryM\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Purnendu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Purnendu\\Documents\\LibraryM\\API\\obj\\",
+        "outputPath": "C:\\Users\\Purnendu\\Documents\\WebProjects\\LibraryM\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Purnendu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -63,6 +63,14 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.4, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "PagedList.Mvc": {
+              "target": "Package",
+              "version": "[4.5.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

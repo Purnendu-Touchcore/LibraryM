@@ -35,6 +35,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {NgxPaginationModule} from 'ngx-pagination'; 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   providers: [
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

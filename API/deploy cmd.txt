@@ -1,0 +1,15 @@
+https://docs.microsoft.com/en-us/learn/modules/host-a-web-app-with-azure-app-service/7-exercise-deploy-your-code-to-app-service?pivots=csharp
+
+cd ~/API
+dotnet publish -o pub
+cd pub
+zip -r site.zip *
+
+az webapp deployment source config-zip --src API.zip --resource-group LibraryM-Purnendu --name LMS-API-Purnendu
+
+
+
+Connection String
+Local SQL: "Data Source=localhost\\SQLEXPRESS;Initial Catalog=LMS;Integrated Security=True;ApplicationIntent=ReadWrite;"
+Azure SQL: Server=tcp:sql-server-purnendu.database.windows.net,1433;Initial Catalog=LMS;Persist Security Info=False;User ID=Purnendu;Password=1SQLPassWord!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+

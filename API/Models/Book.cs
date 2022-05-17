@@ -1,4 +1,6 @@
-﻿namespace API.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace API.Models
 {
     public class Book
     {
@@ -11,8 +13,9 @@
         public string? CoverImage {get;set;} 
         public string? Publisher {get;set;}
         public int ISBN {get;set;}
-        public string? PublicationDate {get;set;}
+        public DateTime? PublicationDate {get;set;}
         public int Pages {get;set;}
+        [NotMapped]
         public int MaxRows { get; set; }
         
     }

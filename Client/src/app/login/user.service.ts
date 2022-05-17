@@ -5,10 +5,11 @@ import { Observable, throwError } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import { User } from './user';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class UserService {
-  usersUrl = 'https://librarym-purnendu.azure-api.net/user';  // URL to web api
+  usersUrl = environment.baseUrl+'/user';  // URL to web api
 
   constructor(private http: HttpClient) { }
 

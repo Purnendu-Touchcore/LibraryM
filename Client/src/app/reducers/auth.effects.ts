@@ -12,7 +12,7 @@ export class AuthEffects {
             .pipe(
                 ofType(logout),
                 tap(action => {
-                    this.router.navigateByUrl('/');
+                    this.router.navigate(['/'], {replaceUrl: true});
                     localStorage.removeItem('token');
                 })
             )

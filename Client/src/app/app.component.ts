@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
       const user: User = {
         id: userData['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid'] as number,
         email: userData['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'] as string,
-        role: userData['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as string,
+        roleName: userData['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] as string,
       } as User
       this.store.dispatch(login({ user }));
     }

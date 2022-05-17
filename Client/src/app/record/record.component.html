@@ -1,7 +1,18 @@
 <h1 id="tableLabel">All Records</h1>
 
-<p *ngIf="!records"><mat-spinner></mat-spinner></p>
-<div style="display:flex; justify-content: flex-end;">
+<p *ngIf="!records">
+  <mat-spinner></mat-spinner>
+</p>
+<div *ngIf="records" class="d-flex justify-content-between align-items-center search_container" style="width: 100%;">
+
+  <div class="d-flex searchbar" *ngIf="user.roleName == 'Admin'">
+    <input type="text" [(ngModel)]="email" placeholder="Search Records By Email" />
+    <button type="button" class="btn btn-primary btn-sm d-flex" (click)="search()">
+      <div>
+        <mat-icon>search</mat-icon>
+      </div>
+    </button>
+  </div>
   <div class="dropdown " dropdown>
     <button class="dropdown-toggle btn shadow-none" dropdownToggle style="background:#fff;margin-bottom: 12px;">Status
       Filter: {{statusFillter}} </button>
@@ -12,23 +23,6 @@
       <a class="dropdown-item" style="cursor: pointer;" (click)="applyFilter('Returned')">Returned</a>
     </div>
   </div>
-
-    
-    <!-- <select class="form-select" #SelectedStatus (click)="applyFilter(SelectedStatus.value)">
-      <option value=''>Status Filter</option>
-      <option value='All'>
-        All
-      </option>
-      <option value='Requested'>
-        Requested
-      </option>
-      <option value='Issued'>
-        Issued
-      </option>
-      <option value='Returned'>
-        Returned
-      </option>
-    </select> -->
 </div>
 
 
@@ -61,37 +55,39 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
       <td mat-cell *matCellDef="let element">
-        <span *ngIf="editRecord!==element  else editSInput" class="name">{{ element.status }}</span>
-        <ng-template #editSInput>
-          <select #EditStatusSelect [value]="element!.status" (change)="editStatus(EditStatusSelect!.value)">
-            <option *ngIf="element!.status !== 'Issued'" value="Requested">Requested</option>
-            <option value="Issued">Issued</option>
-          </select>
-        </ng-template>
+        <span *ngIf="editRecord!==element || element.status == 'Issued'" class="name">{{ element.status }}</span>
+
+        <select *ngIf="editRecord===element && element.status === 'Requested'"
+        #EditStatusSelect [value]="element!.status"
+        (change)="editStatus(EditStatusSelect!.value)" 
+          >
+          <option *ngIf="element!.status !== 'Issued'" value="Requested">Requested</option>
+          <option value="Issued">Issued</option>
+        </select>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="issuedDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue Date</th>
-      <td mat-cell *matCellDef="let element">{{ (element.issuedDate !=='' &&
-        element.issuedDate !=='') ? (element.issuedDate | date) : "NA" }}</td>
+      <td mat-cell *matCellDef="let element">{{ (element.issuedDate &&
+        element.issuedDate) ? (element.issuedDate | date) : "NA" }}</td>
     </ng-container>
 
     <ng-container matColumnDef="dueDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</th>
       <td mat-cell *matCellDef="let element">{{ (element.dueDate !=='' &&
-        element.dueDate !=='') ? (element.dueDate | date) : "NA" }}</td>
+        element.dueDate) ? (element.dueDate | date) : "NA" }}</td>
     </ng-container>
 
     <ng-container matColumnDef="returnDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Return Date</th>
       <td mat-cell *matCellDef="let element">
-        <span *ngIf="editRecord!==element; else editRDInput" class="name">{{ (element.issuedDate !=='' &&
-          element.returnDate !=='') ? (element.returnDate | date) : "NA" }}</span>
-        <ng-template #editRDInput>
-          <input [(ngModel)]='returnDate' #EditRD type="date" class="name" [value]="element!.returnDate | date" />
+        <span *ngIf="editRecord!==element || element.status =='Requested'" class="name">{{ (element.issuedDate &&
+          element.returnDate ) ? (element.returnDate | date) : "NA" }}</span>
 
-        </ng-template>
+        <input *ngIf="element && editRecord===element && element.status =='Issued'" [(ngModel)]='returnDate' #EditRD
+          type="date" class="name" [value]="element!.returnDate | date" style="width:97px; font-size: 13px;"/>
+
       </td>
     </ng-container>
 
@@ -103,13 +99,13 @@
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
       <td mat-cell *matCellDef="let element" style="position:relative">
-        <button class="btn shadow-none" [disabled]="element.status === 'Returned'" *ngIf="(user.role == 'Admin')"
+        <button class="btn shadow-none" [disabled]="element.status === 'Returned'" *ngIf="(user.roleName == 'Admin')"
           (click)="updateRecordOrActivateForm(element)">
           <mat-icon *ngIf="editRecord!==element;">edit</mat-icon>
           <mat-icon *ngIf="editRecord===element;">save</mat-icon>
         </button>
         <button style="position:absolute;z-index: 10;right: 45px;" class="btn shadow-none" *ngIf="editRecord===element;"
-          (click)="editRecord=undefined">
+          (click)="editRecord=undefined;returnDate=null">
           <mat-icon>cancel</mat-icon>
         </button>
       </td>
@@ -118,7 +114,7 @@
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
       <td mat-cell *matCellDef="let element">
-        <button class="btn shadow-none" *ngIf="user.role == 'Admin'" (click)="delete(element)">
+        <button class="btn shadow-none" *ngIf="user.roleName == 'Admin'" (click)="delete(element)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
@@ -128,7 +124,6 @@
     <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
   </table>
   <mat-paginator #paginatorRef [pageSizeOptions]="[10, 20]" showFirstLastButtons aria-label="Select page of Books"
-  [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize" (page)="pageChanged($event)"
-  >
+    [length]="totalRows" [pageIndex]="pageNumber" [pageSize]="pageSize" (page)="pageChanged($event)">
   </mat-paginator>
 </div>

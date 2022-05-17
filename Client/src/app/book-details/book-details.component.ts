@@ -43,7 +43,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   getBook(id: string){      
-    if(this.user && this.user.role=='Student' )
+    if(this.user && this.user.roleName=='Student' )
       this.recordService.getStatus(this.user.id).subscribe(records => { this.allBookStatus = records; });
 
     this.bookService.getBook(id).subscribe(book => {
@@ -58,9 +58,9 @@ export class BookDetailsComponent implements OnInit {
       userId: this.user.id as number,
       email: this.user.email as string,
       status: 'Requested',
-      issuedDate: '',
-      dueDate: '',
-      returnDate: '',
+      issuedDate: null,
+      dueDate: null,
+      returnDate: null,
       fineAmount: 0
     } as Record
     this.recordService.addRecord(newRecord).subscribe(id => {

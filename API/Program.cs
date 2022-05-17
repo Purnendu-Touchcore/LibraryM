@@ -5,9 +5,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using API.Middlewares;
-using System.Text.Json;
-using Microsoft.AspNetCore.Diagnostics;
-using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,10 +50,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
     });
-builder.Services.AddSingleton<IBookRepository, BookRepository>();
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
-builder.Services.AddSingleton<IRecordRepository, RecordRepository>();
-
+builder.Services.AddScoped<IBookRepository, BookRepositoryEF>();
+builder.Services.AddScoped<IUserRepository, UserRepositoryEF>();
+builder.Services.AddScoped<IRecordRepository, RecordRepositoryEF>();
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -2,6 +2,7 @@
 using API.Models;
 using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using API.DTOs;
 
 namespace API.Controllers
 {
@@ -19,40 +20,30 @@ namespace API.Controllers
         }
 
         // GET Record
-        [HttpGet, Authorize(Roles = "Admin")]
-        public IEnumerable<Record> Get()
+        [HttpGet("{bookStatus}/{email}/{pageSize}/{pageNumber}")]
+        public IEnumerable<RecordDTO> GetRecordsByPageNo(string bookStatus, string email, int pageSize, int pageNumber)
         {
-            return _repository.GetRecords();
+            return _repository.GetRecordsByPageNo(bookStatus, email, pageSize, pageNumber);
         }
 
-        [HttpGet("page/{pageSize}/{currentPage}"), Authorize(Roles = "Admin,Student")]
-        public IEnumerable<Record> GetBooksByPageNo(int pageSize, int currentPage)
-        {
-            return _repository.GetRecordsByPageNo(pageSize, currentPage);
-        }
 
-        [HttpGet("{id}"), Authorize(Roles = "Student")]
-        public IEnumerable<Record> Get(int id)
-        {
-            return _repository.GetRecordsById(id);
-        }
-
+        // GET Book status
         [HttpGet("book/{UserId}"), Authorize(Roles = "Student")]
-        public IEnumerable<Record> GetStatus(int UserId)
+        public IEnumerable<RecordDTO> GetStatus(int UserId)
         {
             return _repository.GetStatus(UserId);
         }
 
-        // POST Record
+        // Insert Record
         [HttpPost, Authorize(Roles = "Student")]
-        public int Post(Record record)
+        public int Post(RecordDTO record)
         {
             return _repository.Insert(record);
         }
 
-        // PUT Record/5
+        // Update Record/5
         [HttpPut("{id}"), Authorize(Roles = "Admin")]
-        public void Put(int id, Record record)
+        public void Put(int id, RecordDTO record)
         {
             
             _repository.UpdateRecordById(id, record);

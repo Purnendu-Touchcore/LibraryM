@@ -8,7 +8,7 @@ export interface Book {
   coverImage: string;
   publisher: string;
   isbn: number;
-  publicationDate: string;
+  publicationDate: Date;
   pages: string;
   maxRows: number;
 }

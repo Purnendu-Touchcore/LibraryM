@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using API.Middlewares;
+using API.DTOs;
 
 namespace API.Repositories
 {
@@ -22,7 +23,7 @@ namespace API.Repositories
             connectionString = _configuration.GetConnectionString("DefaultConnection");
         }
 
-        public int Register(User user)
+        public int Register(UserDTO user)
         {
             byte[] passwordSalt, passwordHash;
 
@@ -99,9 +100,9 @@ namespace API.Repositories
         }
 
 
-        public User Login(User userData)
+        public UserDTO Login(UserDTO userData)
         {
-            User user = new();
+            UserDTO user = new();
             SqlConnection cnn = null;
             SqlDataReader reader = null;
             try
@@ -141,7 +142,7 @@ namespace API.Repositories
                                 user.Id = Convert.ToInt32(reader["Id"]);
                                 user.Name = reader["Name"].ToString();
                                 user.Email = reader["Email"].ToString();
-                                user.Role = reader["Role"].ToString();
+                                user.RoleName = reader["Role"].ToString();
 
                             }
 
@@ -163,14 +164,14 @@ namespace API.Repositories
             }
         }
 
-        private string CreateToken(User user)
+        private string CreateToken(UserDTO user)
         {
-            if (user.Email == null || user.Role == null) return "";
+            if (user.Email == null || user.RoleName == null) return "";
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.Role, user.RoleName)
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
